@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+            加号 + 有两种形式。一种是上面我们刚刚讨论的二元运算符，还有一种是一元运算符。
+            一元运算符加号，或者说，加号 + 应用于单个值，对数字没有任何作用。但是如果运算元不是数字，加号 + 则会将其转化为数字。
+        */
+        let x = 1;
+        alert(+x); // 1
+
+        let y = -2;
+        alert(+y); // -2
+        // 转化为非数字
+        alert(+true); // 1
+        alert(+""); // 0
+
+        let apples = "2";
+        let oranges = "3";
+
+        // 在二元运算符加号起作用之前，所有的值都被转化为了数字
+        alert(+apples + +oranges); // 5
+
+        // 更长的写法
+        // alert( Number(apples) + Number(oranges) ); // 5
+    </script>
+</body>
+
+</html>
