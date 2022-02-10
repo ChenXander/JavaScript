@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /* 在赌场 21 点游戏中，玩家可以通过计算牌桌上已经发放的卡牌的高低值来让自己在游戏中保持优势。这就叫 21 点算法。
+        牌桌上的大值的卡牌更多，对玩家有利。 根据下面的表格，每张卡牌都被分配了一个值。如果卡牌的值大于 0，那么玩家应该追加赌注。
+        如果卡牌的值为 0 或负数，玩家应该追加少许赌注甚至不追加赌注 */
+
+        // 计数       |       卡牌
+        // +1        |   2,3,4,5,6
+        // 0         |   7,8,9
+        // -1        | 10,'J','Q','K','A'
+
+        /*
+            请写一个函数实现 21 点算法。 它根据参数 card 的值（见表格，可能是数字或者字符串）来递增或递减全局变量 count。
+            然后函数返回一个由当前 count（计数）和 Bet（当 count > 0 时）或 Hold（当 count <= 0 时) 拼接的字符串
+        */
+
+
+        let count = 0;
+
+        function cc(card) {
+            switch (card) {
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+                    count++;
+                    break;
+                case 10:
+                case 'J':
+                case 'Q':
+                case 'K':
+                case 'A':
+                    count--;
+                    break;
+            }
+            if (count > 0) {
+                return count + " Bet";
+            } else {
+                return count + " Hold";
+            }
+        }
+
+        cc(2); cc(3); cc(7); cc('K'); cc('A');
+    </script>
+</body>
+
+</html>
