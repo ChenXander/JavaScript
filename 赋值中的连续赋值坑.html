@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let a = { x: 10 };
+        let b = a;
+        a.x = a = { n: 20 }; //注意：等价于a.x = { n: 20 }; a = { n: 20 }
+        //a.x赋值改得是a指向内存中x值，a赋值是指向新的对象{ n：20 }
+
+        console.log(a.x); //undefined，找的是a = { n: 20 }中的x属性
+        console.log(b.x); //{ n: 20 }，找的是原对象{ x: 10 }的x属性值，但是此时x属性值已被a.x赋值操作中更改为{ n：20 }
+    </script>
+</body>
+
+</html>
