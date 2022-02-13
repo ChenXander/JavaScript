@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 入职月薪10000，每年涨幅5%，20年后月薪？
+        var year = 20;
+        var t = 0.05;
+        function fn(y) {
+            if (y == 1) {
+                return 10000;
+            } else {
+                return fn(y - 1) * (1 + t);
+            }
+        }
+        document.write("20年后" + fn(year));
+    </script>
+</body>
+
+</html>
