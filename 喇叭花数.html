@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 定义阶乘函数
+        function factorial(n) {
+            var result = 1;
+            for (let i = 1; i <= n; i++) {
+                result *= i;
+            }
+            return result;
+        }
+
+        // 找100-999的喇叭花数
+        for (var i = 100; i <= 999; i++) {
+            var i_str = i.toString();
+            var a = Number(i_str[0]);
+            var b = Number(i_str[1]);
+            var c = Number(i_str[2]);
+
+            if (factorial(a) + factorial(b) + factorial(c) == i) {
+                console.log(i); // 145
+            }
+        }
+
+
+    </script>
+</body>
+</html>
