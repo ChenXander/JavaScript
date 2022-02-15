@@ -51,6 +51,22 @@
         fun1('A', 'B', 'C', function () {
             console.log(this[1]); // 规则3，this[1]指向arguments这个类数组索引为1的项,即''B'
         })
+
+
+        var a = 6;
+        var obj = {
+            a: 5,
+            b: 2,
+            c: [
+                1,
+                a,
+                function () {
+                    document.write(this[1]);
+                }
+            ]
+        };
+
+        obj.c[2](); // obj.c[2]代表这个匿名函数，所以为直接调用，则属于规则2，this指向window，输出6
     </script>
 </body>
 
