@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var obj = {
+            a: 1,
+            b: 2,
+            c: [33, 44, {
+                m: 5,
+                n: 66,
+                p: [77, 88]
+            }]
+        };
+
+        // 深拷贝
+        function deepClone(args) {
+            if (Array.isArray(args)) {
+                var result = [];
+
+                for (var i = 0; i < args.length; i++) {
+                    result.push(deepClone(args[i]));
+                }
+            } else if (typeof args == 'object') {
+                var result = {};
+                for (var key in args) {
+                    result[key] = deepClone(args[key]);
+                }
+            } else {
+                var result = args;
+            }
+            return result;
+        }
+
+        // 验证
+        var obj2 = deepClone(obj);
+        console.log(obj2);
+
+        console.log(obj2.c == obj.c);
+    </script>
+</body>
+
+</html>
