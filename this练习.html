@@ -13,6 +13,9 @@
         // 规则1.函数被xxx调用时 xxx.fn(),则this指向xxx
         // 规则2.函数直接调用 fn(),则this指向window
         // 规则3.类数组枚举函数调用，this指向这个数组
+        // 规则4.立即执行函数的this指向window
+        // 规则5.定时器，延时器调用函数，指向window
+        // 规则6.事件处理函数的this指向绑定事件的DOM元素
 
         function fun() {
             return this.a + this.b;
@@ -67,6 +70,53 @@
         };
 
         obj.c[2](); // obj.c[2]代表这个匿名函数，所以为直接调用，则属于规则2，this指向window，输出6
+
+
+
+        var a = 1;
+        var obj = {
+            a: 2,
+            fun: (function () {
+                var a = this.a; // 立即执行函数使用规则4，this指向window，即this.a为1
+                return function () {
+                    console.log(a + this.a);// obj调用fun函数,使用规则1,则 匿名函数中的this.a指向obj.a,为2
+                }
+            })() // 立即执行函数，相当于fun: function () {console.log(a + this.a)}
+        };
+        obj.fun(); // 3
+
+
+
+
+        var obj = {
+            a: 1,
+            b: 2,
+            fun: function () {
+                console.log(this.a + this.b); // 指向window 为7
+            }
+        }
+
+        var a = 3;
+        var b = 4;
+
+        setTimeout(obj.fun, 2000); // setTimeout(fun, 2000)，即由定时器调用使用规则5，this指向window
+
+
+
+        var obj = {
+            a: 1,
+            b: 2,
+            fun: function () {
+                console.log(this.a + this.b); // 指向obj，为3
+            }
+        }
+
+        var a = 3;
+        var b = 4;
+
+        setTimeout(function () {
+            obj.fun(); //由于在匿名函数中调用，则不适用规则5，obj调用适用规则1
+        }, 2000);
     </script>
 </body>
 
