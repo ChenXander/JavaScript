@@ -29,6 +29,8 @@
         // 规则4.立即执行函数的this指向window
         // 规则5.定时器，延时器调用函数，指向window
         // 规则6.事件处理函数的this指向绑定事件的DOM元素
+        // 规则7.call和apply指定上下文，xxx.call(指定的上下文, 参数1, 参数2)
+        // xxx.apply(指定的上下文, [参数1, 参数2])
 
         /* function fun() {
             return this.a + this.b;
@@ -147,6 +149,34 @@
         box1.onclick = setColorToRed;
         box2.onclick = setColorToRed;
         box3.onclick = setColorToRed;
+
+
+
+
+        /* function sum(b1, b2) {
+            alert(this.c + this.m + this.e + b1 + b2);
+        };
+
+        var xiaoMing = {
+            c: 100,
+            m: 90,
+            e: 80
+        };
+
+        sum.call(xiaoMing, 3, 5);
+        sum.apply(xiaoMing, [3, 5]); */
+
+
+
+        /* function fun1() {
+            fun2.apply(this, arguments); // fun1直接调用使用规则2，this指向window，
+                                        // 所以fun2的上下文为window，由于传入了arguments参数，arguments为类数组，
+                                        // 所以此处不能用call来指定上下文，call的参数不是数组形式
+        }
+        function fun2(a, b) {
+            alert(a + b);
+        }
+        fun1(33, 44); */ // 77
     </script>
 </body>
 
