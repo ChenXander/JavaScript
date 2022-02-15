@@ -29,8 +29,9 @@
         // 规则4.立即执行函数的this指向window
         // 规则5.定时器，延时器调用函数，指向window
         // 规则6.事件处理函数的this指向绑定事件的DOM元素
-        // 规则7.call和apply指定上下文，xxx.call(指定的上下文, 参数1, 参数2)
-        // xxx.apply(指定的上下文, [参数1, 参数2])
+        // 规则7.call和apply指定上下文，xxx.call(指定的上下文, 参数1, 参数2);xxx.apply(指定的上下文, [参数1, 参数2])
+        // 规则8.new构造函数this指向函数体内构造的空对象
+
 
         /* function fun() {
             return this.a + this.b;
