@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>2022高考倒计时</h1>
+    <h2 id="info"></h2>
+
+    <script>
+        var info = document.getElementById('info');
+
+        setInterval(function () {
+            // 现在时期
+            var nd = new Date();
+            // 目标的日期 6月7日
+            var td = new Date(2022, 5, 7);
+
+            // 毫秒差
+            var diff = td - nd;
+
+            // 把diff换算成天，时，分，秒
+            // 换算为多少天
+            var day = parseInt(diff / (1000 * 60 * 60 * 24));
+
+            // 小时
+            var hours = parseInt(diff % (1000 * 60 * 60 * 24) / (1000 * 60 * 60));
+
+            // 分钟
+            var minutes = parseInt(diff % (1000 * 60 * 60) / (1000 * 60));
+
+            // 秒
+            var seconds = parseInt(diff % (1000 * 60 * 60) % (1000 * 60) / 1000);
+
+            info.innerText = day + '天' + hours + '时' + minutes + '分' + seconds + '秒';
+        }, 1000);
+    </script>
+</body>
+
+</html>
