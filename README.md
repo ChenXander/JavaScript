@@ -1,8 +1,8 @@
 #### 1.typeof
 
-1. 判断所有值类型：Undefined、String、Number、Boolean、Symbol
-2. 判断函数：function
-3. 识别引用类型：object(null)
+1. 判断所有值类型：`Undefined`、`String`、`Number`、`Boolean`、`Symbol`
+2. 判断函数：`function`
+3. 识别引用类型：`object`(null)
 
 #### 2.深拷贝
 
@@ -76,7 +76,7 @@ function deepClone(obj = {}) {
 
 4. 逻辑运算：&&、||
 
-5. instanceof
+5. `instanceof`
 
    ```js
    xialuo instanceof Student // true
@@ -158,13 +158,37 @@ function deepClone(obj = {}) {
    >
    > 不是在函数执行的地方！
 
+4. 闭包的应用
+
+   - 隐藏数据：如做一个cache工具
+
+     ```js
+     // 闭包隐藏数据，只提供API
+     function createCache() {
+     	const data = {} // 闭包中的数据，被隐藏，不被外界访问
+     	return {
+     		set: function (key, val) {
+     			data[key] = val
+     		},
+     		get: function (key) {
+     			return data[key]
+     		},
+     	}
+     }
+     const c = createCache()
+     c.set('a', 100)
+     console.log(c.get('a')) // 100
+     ```
+
+     
+
 #### 6.this
 
 - this的指向是在函数执行的时候定义
 
   1. 作为普通函数调用，指向window
 
-  2. 使用call、apply、bind
+  2. 使用`call`、`apply`、`bind`
 
      ```js
      function fn1 () {
@@ -228,4 +252,56 @@ function deepClone(obj = {}) {
      zhangsan.sayHi() // this 即zhangsan对象
      ```
 
-     
+
+#### 7.异步和同步
+
+- 基于JS是单线程语言
+
+- 异步不会阻塞代码执行
+
+- 同步会阻塞代码执行
+
+  - 异步应用场景
+    1. 网络请求，如`ajax`图片加载
+    2. 定时任务，如`setTimeout`
+
+- Promise
+
+  ```js
+  const url1 =
+        'https://img1.baidu.com/it/u=4127991555,3421789262&fm=253&fmt=auto&app=138&f=JPEG?w=680&h=454'
+  const url2 =
+        'https://img1.baidu.com/it/u=1407750889,3441968730&fm=253&fmt=auto&app=120&f=JPEG?w=1200&h=799'
+  
+  function loadImg(src) {
+  	return new Promise((resolve, reject) => {
+  		const img = document.createElement('img')
+  		img.onload = () => resolve(img)
+  		img.onerror = () => reject(new Error(`图片加载失败 ${src}`))
+  
+  		img.src = src
+  	})
+  }
+  
+  loadImg(url1)
+  	.then((img1) => {
+  		console.log(img1.width)
+  		return img1 // 普通对象
+  	})
+  	.then((img1) => {
+  		console.log(img1.height)
+  		return loadImg(url2) // promise实例
+  	})
+  	.then((img2) => {
+  		console.log(img2.width)
+  		return img2
+  	})
+  	.then((img2) => {
+  		console.log(img2.height)
+  	})
+  	.catch((err) => {
+  		console.log(err)
+  	})
+  ```
+
+  
