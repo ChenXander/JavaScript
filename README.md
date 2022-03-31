@@ -304,4 +304,151 @@ function deepClone(obj = {}) {
   	})
   ```
 
+#### 8.DOM
+
+- `property`
+
+  - 是DOM中的属性，是js里的对象
+  - 修改对象属性，**不会体现在html结构中**
+
+- `attribute`
+
+  - 是HTML标签的特性，值只能是字符串
+
+  - 如`id`、`class`、`title`、`align`等
+
+  - 获取`getAttribute()`、设置`setAttribute()`
+
+  - 修改html属性，**会改变html结构**
+
+    ```js
+    <div id="div1" class="divClass" title="divTitle" align="left" title1="divTitle1"></div>
+    
+    var id = div1.getAttribute("id")             
+    var className1 = div1.getAttribute("class")
+    var title = div1.getAttribute("title")
+    var title1 = div1.getAttribute("title1")  //自定义特性
+    
+    div1.setAttribute('class', 'a')
+    div1.setAttribute('title', 'b')
+    div1.setAttribute('title1', 'c')
+    div1.setAttribute('title2', 'd')
+    
+    ```
+
+- **`attributes`是属于`property`的一个子集**
+
+  > property能够从attribute中得到同步
+  >
+  > attribute不会同步property上的值
+  >
+  > attribute和property之间的数据绑定是单向的，attribute->property
+  >
+  > 更改property和attribute上的任意值，都会将更新反映到HTML页面中
+
+- 优化DOM性能
+
+  - DOM查询做缓存
+
+    ```js
+    // 不缓存DOM查询结果
+    for (let i = 0; i < document.getElementsByTagName('p').length; i++) {
+    // 每次循环都会计算length，频繁进行DOM查询
+    }
+    
+    // 缓存DOM查询结果
+    const pList = document.getElementsByTagName('p')
+    const length = pList.length
+    for (let i = 0; i < length; i++) {
+    // 缓存length，只进行一次DOM查询
+    }
+    ```
+
+  - 将频繁操作改为一次性操作
+
+    ```js
+    const listNode = document.getElementById('list')
+    // 创建一个文档片段，此时还没有插入到DOM树中
+    const frag = document.createDocumentFragment()
+    
+    // 执行插入
+    for (let x = 0; x < 10; x++) {
+      const li = document.createElement('li')
+      li.innerHTML = 'List item' + x
+      frag.appendChild(li)
+    }
+    // 都完成后，再插入到DOM树中
+    listNode.appendChild(frag)
+    ```
+
+#### 9.BOM
+
+- ```js
+  // navigator
+  const ua = navigator.userAgent
+  const isChrome = ua.indexOf('Chrome')
+  console.log(isChrome) // -1
+  
+  // screen
+  console.log(screen.width)
+  console.log(screen.height)
+  
+  // location
+  console.log(location.href) // 网页地址
+  console.log(location.protocol) // 协议http(s)
+  console.log(location.pathname) // 路径
+  console.log(location.search) // 查询的参数
+  console.log(location.hash) // #后面的内容
+  
+  // history
+  history.back()
+  history.forward()
+  ```
+
+#### 10.事件
+
+- **事件绑定**
+
+  ```js
+  function bindEvent(elem, type, fn) {
+    elem.addEventListener(type, fn)
+  }
+  const btn1 = document.getElementById('btn1')
+  bindEvent(btn1, 'click', (event) => {
+    console.log(event.target) // 获取触发的元素
+    event.preventDefault() // 阻止默认行为
+    alert('clicked')
+  })
+  ```
+
+- **事件冒泡**
+
+  ```js
+  event.stopPropagation()
+  ```
+
+- **事件代理**
+
+  ```js
+  function bindEvent(elem, type, selector, fn) {
+    if (fn == null) {
+      fn = selector
+      selector = null
+    }
+    elem.addEventListener(type, (e) => {
+      let target
+      if (selector) {
+        // 需要代理
+        target = e.target
+        if (target.matches(selector)) {
+          fn.call(target, e)
+        }
+      } else {
+          // 不需要代理
+          fn(e)
+      }
+    })
+  }
+  ```
+
   
